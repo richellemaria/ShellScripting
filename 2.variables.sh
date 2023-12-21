@@ -3,3 +3,4 @@
  b=13
 
  echo The value of a $a
+ echo The value of d is $d
