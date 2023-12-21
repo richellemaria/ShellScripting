@@ -2,8 +2,8 @@
 
 echo "Name of script executed $0"
 
-echo "my name is $0"
-echo " I am learning $1"
+echo "my name is $1"
+echo " I am learning $2"
 echo $*
 echo $@
 echo $#
