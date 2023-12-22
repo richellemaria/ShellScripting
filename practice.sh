@@ -13,10 +13,13 @@ todays_date=$(date +%D)
 echo -e "todays date is \e[34m $todays_date \e[0m"
 
 echo "the name of the script is $0"
-echo "my name is $1"
-echo "I am learning $2"
+# echo "my name is $1"
+# echo "I am learning $2"
 echo $*
 echo $@
 echo $$
 echo $#  
 echo $?
+
+read -p "enter your name :" name
+echo -e "the enetered value is $name"
