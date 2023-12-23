@@ -23,3 +23,4 @@ echo $?
 
 read -p "enter your name :" name
 echo -e "the enetered value is $name"
+
