@@ -1,7 +1,7 @@
 #!/bin/bash
 
 COMPONENT=frontend
-LOGFILE=/tmp/$COMPONENT.log
+LOGFILE="/tmp/$COMPONENT.log"
 ID=$(id -u)
 if [ $ID -ne 0 ] ; then
   echo -e "\e[31m The script is excepted to  be run as sudo user \e[0m"
