@@ -1,3 +1,3 @@
 #!/bin/sh
 
-bash components/
+bash components/$1.sh
