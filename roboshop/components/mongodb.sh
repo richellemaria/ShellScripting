@@ -46,7 +46,7 @@ stat $?
 
 echo -n "Extracting in $COMPONENT conponent"
 cd /tmp
-unzip mongodb.zip &>> $LOGFILE
+unzip -o mongodb.zip &>> $LOGFILE
 stat $?
 
 echo -n "Injecting the schema"
