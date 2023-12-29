@@ -1,6 +1,6 @@
 #!/bin/bash
 
-COMPONENT=catalogue
+COMPONENT=user
 
 source components/common.sh
 
@@ -25,7 +25,7 @@ stat $?
 echo -n "copying the $COMPONENT to $APPUSER home directory"
 cd /home/$APPUSER
 rm -rf $COMPONENT &>> $LOGFILE
-unzip -o /tmp/catalogue.zip &>> $LOGFILE
+unzip -o /tmp/$COMPONENT.zip &>> $LOGFILE
 stat $?
 
 echo -n "modifying the owbership"
@@ -40,6 +40,7 @@ stat $?
 
 echo -n "updating $COMPONENT systemfile"
 sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' /home/$APPUSER/$COMPONENT/systemd.service
+sed -i -e 's/REDIS_DNSNAME/redis.roboshop.internal/' /home/$APPUSER/$COMPONENT/systemd.service
 mv /home/roboshop/$COMPONENT/systemd.service /etc/systemd/system/$COMPONENT.service
 stat $?
 
