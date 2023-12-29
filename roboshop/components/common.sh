@@ -1,6 +1,8 @@
 #!/bin/bash
 
 LOGFILE="/tmp/$COMPONENT.log"
+APPUSER="roboshop"
+
 ID=$(id -u)
 if [ $ID -ne 0 ] ; then
   echo -e "\e[31m The script is excepted to  be run as sudo user \e[0m"
