@@ -42,7 +42,7 @@ mv localhost.conf /etc/nginx/default.d/roboshop.conf
 stat $?
 
 echo -n "updating backend component"
-for component in catalogue ; downloading
+for component in catalogue ; do
  sed -i -e "/$component/s/localhost/$component.roboshop.internal/" /etc/nginx/default.d/roboshop.conf
 done
 stat $?
