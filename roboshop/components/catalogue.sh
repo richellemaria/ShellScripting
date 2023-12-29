@@ -24,7 +24,7 @@ yum install https://rpm.nodesource.com/pub_16.x/nodistro/repo/nodesource-release
 yum install nodejs -y  &>> $LOGFILE
 stat $?
 
-id $APPUSER $LOGFILE
+id $APPUSER &>> $LOGFILE
 if [ $? -ne 0 ] ; then
 
     echo -n "Creating the service account"
@@ -39,13 +39,34 @@ stat $?
 
 echo -n "copying the $COMPONENT to $APPUSER home directory"
 cd /home/$APPUSER
-unzip -o /tmp/catalogue.zip $LOGFILE
+rm -rf $COMPONENT &>> $LOGFILE
+unzip -o /tmp/catalogue.zip &>> $LOGFILE
 stat $?
 
 echo -n "modifying the owbership"
 mv $COMPONENT-main/ $COMPONENT
 chown -R $APPUSER:$APPUSER /home/$APPUSER/$COMPONENT
 stat $?
+
+echo -n "Generating npm $COMPONENT artifacts"
+cd /home/$APPUSER/$COMPONENT
+npm install &>> $LOGFILE
+
+echo -n "updating $COMPONENT systemfile"
+sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' cd /home/$APPUSER/$COMPONENT/systemd.service
+mv /home/roboshop/cata$COMPONENTlogue/systemd.service /etc/systemd/system/$COMPONENT.service
+stat $?
+
+echo -n "starting $COMPONENT service"
+systemctl daemon-reload &>> $LOGFILE
+systemctl enable $COMPONENT &>> $LOGFILE
+systemctl restart $COMPONENT &>> $LOGFILE
+stat $?
+
+
+
+
+
 
 
 
