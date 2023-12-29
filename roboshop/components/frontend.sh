@@ -35,7 +35,7 @@ done
 stat $?
 
 echo -n "starting $COMPONENT conponent"
-systemctl deamon-reload &>> $LOGFILE
+systemctl daemon-reload &>> $LOGFILE
 systemctl enable nginx &>> $LOGFILE
 systemctl restart nginx &>> $LOGFILE
 stat $?
