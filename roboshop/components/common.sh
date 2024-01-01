@@ -59,7 +59,7 @@ NPM_INSTALL(){
 CONFIG_SERVICE(){
 
     echo -n "updating $COMPONENT systemfile"
-    sed -i -e 's/REDIS_ENDPOINT/redis.roboshop.internal/'  -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' /home/$APPUSER/$COMPONENT/systemd.service
+    sed -i -e 's/DBHOST/mysql.roboshop.internal/' -e 's/CARTENDPOINT/cart.roboshop.internal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/'  -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' /home/$APPUSER/$COMPONENT/systemd.service
     mv /home/roboshop/$COMPONENT/systemd.service /etc/systemd/system/$COMPONENT.service
     stat $?
 
@@ -83,6 +83,32 @@ NODEJS(){
     DOWNLOAD_EXTRACT
 
     NPM_INSTALL
+
+    CONFIG_SERVICE
+
+}
+
+MVN_PACKAGE(){
+
+    echo -n "preparing  $COMPONENT artifact"
+    cd /home/$APPUSER/$COMPONENT
+    mvn clean package &>> $LOGFILE
+    mv target/shipping-1.0.jar shipping.jar
+    stat $?
+
+}
+
+JAVA(){
+
+    echo -n "installing Maven"
+    yum install maven -y &>> $LOGFILE
+    stat $?
+
+    CREATE_USER
+
+    DOWNLOAD_EXTRACT
+  
+    MVN_PACKAGE
 
     CONFIG_SERVICE
 
