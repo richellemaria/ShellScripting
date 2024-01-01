@@ -122,12 +122,12 @@ PYTHON(){
    stat $?
 
    CREATE_USER 
-   
+
    DOWNLOAD_EXTRACT
 
    echo -n "installing $COMPONENT"
    cd /home/$APPUSER/$COMPONENT 
-   pip3 install -r requirements.txt
+   pip3 install -r requirements.txt &>> $LOGFILE
    stat $?
 
 
