@@ -121,6 +121,8 @@ PYTHON(){
    yum install python36 gcc python3-devel -y  &>> $LOGFILE
    stat $?
 
+   CREATE_USER 
+   
    DOWNLOAD_EXTRACT
 
    echo -n "installing $COMPONENT"
