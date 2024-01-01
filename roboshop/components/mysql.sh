@@ -18,7 +18,7 @@ echo -n "changing default password"
 DEFAULT_ROOT_PASSWORD=$(grep 'temporary password' /var/log/mysqld.log | awk -F ' ' '{print $NF}')
 stat $?
 
-echo "show database;" | mysql -uroot -pRoboShop@1 &>> $LOGFILE
+echo "show databases;" | mysql -uroot -pRoboShop@1 &>> $LOGFILE
 if [ $? -ne 0 ] ; then
     echo -n "Performing root password reset"
     echo "ALTER USER 'root'@'localhost' IDENTIFIED by 'RoboShop@1';" | mysql --connect-expired-password -uroot -p${DEFAULT_ROOT_PASSWORD} &>> $LOGFILE
