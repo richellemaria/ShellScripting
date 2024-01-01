@@ -36,14 +36,14 @@ DOWNLOAD_EXTRACT(){
     stat $?
 
     echo -n "copying the $COMPONENT to $APPUSER home directory"
-    cd /home/$APPUSER
+    cd /home/$APPUSER/
     rm -rf $COMPONENT &>> $LOGFILE
     unzip -o /tmp/$COMPONENT.zip &>> $LOGFILE
     stat $?
 
-    echo -n "modifying the owbership"
+    echo -n "modifying the ownership"
     mv $COMPONENT-main/ $COMPONENT
-    chown -R $APPUSER:$APPUSER /home/$APPUSER/$COMPONENT
+    chown -R $APPUSER:$APPUSER /home/$APPUSER/$COMPONENT/
     stat $?
 
 }
