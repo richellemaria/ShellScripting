@@ -15,7 +15,7 @@ systemctl start mysqld  &>> $LOGFILE
 stat $?
 
 echo -n "changing default password"
-DEFAULT_ROOT_PASSWORD=$(grep 'temporary password' /var/log/mysqld.log | aws -F ' ' '{print $NF}')
+DEFAULT_ROOT_PASSWORD=$(grep 'temporary password' /var/log/mysqld.log | awk -F ' ' '{print $NF}')
 stat $?
 
 echo "show database;" | mysql -uroot $pRoboShop@1 &>> $LOGFILE
