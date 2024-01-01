@@ -28,7 +28,7 @@ fi
 echo "show pulgins;" | mysql -uroot $pRoboShop@1 | grep validate_password &>> $LOGFILE
 if [ $? -eq 0 ] ; then
     echo -n "uninstalling password plugin validation"
-    echo "UNINSTALL PLUGIN validate_password;" | mysql -uroot $pRoboShop@1 |  &>> $LOGFILE  
+    echo "UNINSTALL PLUGIN validate_password;" | mysql -uroot -pRoboShop@1 |  &>> $LOGFILE  
     stat $?
 fi
 
