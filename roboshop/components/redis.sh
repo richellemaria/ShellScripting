@@ -23,7 +23,7 @@ sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/$COMPONENT/$COMPONENT.conf
 stat $?
 
 echo -n "starting $COMPONENT conponent"
-systemctl deamon-reload $COMPONENT &>> $LOGFILE
+systemctl daemon-reload $COMPONENT &>> $LOGFILE
 systemctl enable $COMPONENT &>> $LOGFILE
 systemctl restart $COMPONENT &>> $LOGFILE
 stat $?
