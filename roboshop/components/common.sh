@@ -50,7 +50,7 @@ DOWNLOAD_EXTRACT(){
 NPM_INSTALL(){
 
     echo -n "Generating npm $COMPONENT artifacts"
-    cd /home/$APPUSER/$COMPONENT
+    cd /home/$APPUSER/$COMPONENT/
     npm install &>> $LOGFILE
     stat $?
     
