@@ -19,7 +19,7 @@ systemctl enable rabbitmq-server  &>> $LOGFILE
 systemctl start rabbitmq-server &>> $LOGFILE
 stat $?
 
-rabbitmq list_users | grep roboshop &>> $LOGFILE
+rabbitmqctl list_users | grep roboshop &>> $LOGFILE
 if [ $? -ne 0 ] ; then
     echo -n "creating the $COMPONENT $APPUSER"
     rabbitmqctl add_user roboshop roboshop123   
