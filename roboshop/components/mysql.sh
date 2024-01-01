@@ -38,9 +38,12 @@ stat $?
 
 echo -n "Extracting the $COMPONENT schema"
 cd /tmp
-unzip -o $COMPONENT.zip
+unzip -o $COMPONENT.zip $>> $LOGFILE
+stat $?
+
+echo -n "injecting the $COMPONENT schema"
 cd $COMPONENT-main
-mysql -u root -pRoboShop@1 <shipping.sql
+mysql -u root -pRoboShop@1 <shipping.sql  $>> $LOGFILE
 stat $?
 
 
