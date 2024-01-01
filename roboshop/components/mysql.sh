@@ -25,7 +25,7 @@ if [ $? -ne 0 ] ; then
     stat $?
 fi
 
-echo "show pulgins;" | mysql -uroot -pRoboShop@1 | grep validate_password &>> $LOGFILE
+echo "show plugins;" | mysql -uroot -pRoboShop@1 | grep validate_password &>> $LOGFILE
 if [ $? -eq 0 ] ; then
     echo -n "uninstalling password plugin validation"
     echo "UNINSTALL PLUGIN validate_password;" | mysql -uroot -pRoboShop@1 |  &>> $LOGFILE  
@@ -38,7 +38,7 @@ stat $?
 
 echo -n "Extracting the $COMPONENT schema"
 cd /tmp
-unzip -o $COMPONENT.zip &>> $LOGFILE
+unzip -o /$COMPONENT.zip &>> $LOGFILE
 stat $?
 
 echo -n "injecting the $COMPONENT schema"
