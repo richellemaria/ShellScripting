@@ -59,7 +59,7 @@ NPM_INSTALL(){
 CONFIG_SERVICE(){
 
     echo -n "updating $COMPONENT systemfile"
-    sed -i -e 's/DBHOST/mysql.roboshop.internal/' -e 's/CARTENDPOINT/cart.roboshop.internal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/'  -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' /home/$APPUSER/$COMPONENT/systemd.service
+    sed -i  -e 's/USERHOST/user.roboshop.internal/'  -e 's/AMQPHOST/rabbitmq.roboshop.internal/' -e 's/CARTHOST/cart.roboshop.internal/' -e 's/DBHOST/mysql.roboshop.internal/' -e 's/CARTENDPOINT/cart.roboshop.internal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/'  -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' /home/$APPUSER/$COMPONENT/systemd.service
     mv /home/roboshop/$COMPONENT/systemd.service /etc/systemd/system/$COMPONENT.service
     stat $?
 
@@ -114,7 +114,26 @@ JAVA(){
 
 }
 
-# PYTHON(){
+PYTHON(){
 
-    
-# }
+
+   echo -n "installing python"
+   yum install python36 gcc python3-devel -y  &>> $LOGFILE
+   stat $?
+
+   DOWNLOAD_EXTRACT
+
+   echo -n "installing $COMPONENT"
+   cd /home/$APPUSER/$COMPONENT 
+   pip3 install -r requirements.txt
+   stat $?
+
+
+   USERID=$(id -u roboshop)
+   GROUPID=$(id -g roboshop)
+
+   echo -n "updating useradd and groupadd in $COMPONENT.ini file"
+   sed -i -e '/^uid/ c uid=$USERID/' -e '/^gid/ c uid=$GROUPID/' /home/$APPUSER/$COMPONENT/$COMPONENT.ini
+   CONFIG_SERVICE
+
+}
