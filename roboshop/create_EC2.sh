@@ -19,7 +19,7 @@ IPADDRESS=$(aws ec2 run-instances --image-id $AMI_ID --instance-type t2.micro --
 echo -e "private IP Address \e[32m $IPADDRESS \e[0m"
 
 echo -n "creating DNS record for $COMPOMENT"
-sed -e "s/Component/$COMPOMENT/" -e "s/IPAddress/$IPADDRESS/" roboshop/route53.json > /tmp/record.json
+sed -e "s/Component/$COMPOMENT/" -e "s/IPAddress/$IPADDRESS/" route53.json > /tmp/record.json
 aws route53 change-resource-record-sets --hosted-zone-id $HOSTED_ZONE --change-batch file://tmp/record.json
 
 
